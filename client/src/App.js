@@ -1,5 +1,9 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Search from './pages/Search';
+import Saved from './pages/Saved';
+import NoMatch from './pages/NoMatch';
+import Nav from './components/Nav';
 
 function App() {
   return (
@@ -7,13 +11,13 @@ function App() {
     <div>
       <Nav />
       <Switch>
-        <Route exact path={["/", "/books"]}>
-          <Books />
+        <Route exact path={['/', '/search']}>
+          <Search />
         </Route>
-        <Route exact path="/books/:id">
-          <Detail />
+        <Route exact path='/saved'>
+          <Saved />
         </Route>
-        <Route path="*">
+        <Route path='*'>
           <NoMatch />
         </Route>
       </Switch>
