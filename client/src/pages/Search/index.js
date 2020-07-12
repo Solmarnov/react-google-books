@@ -28,13 +28,13 @@ const Search = () => {
         <h1 className="text-center">(React) Google Books Search</h1>
         <p className="lead text-center">Search for and save books of interest</p>
       </Jumbotron>
-      <Container>
+      <Container id="book-search-form-container">
+        <h2>Book search</h2>
         <Form action="" method="get" id="google-books-search">
           <FormGroup>
-            <Label htmlFor="search-book">Search book</Label>
             <Input type="text" name="search-book" id="search-book" placeholder="Search book of interest" onChange={handleInputChange} />
           </FormGroup>
-          <FormBtn float="float-right" id="btn-search">Search</FormBtn>
+          <FormBtn id="btn-search">Search</FormBtn>
         </Form>
       </Container>
     </div>
