@@ -8,7 +8,7 @@ const FormGroup = ({ children }) => {
 
 const FormBtn = props => {
   return (
-    <button className="btn btn-outline-secondary bg-white" id={props.id}>
+    <button className="btn btn-outline-secondary bg-white" {...props}>
       {props.children}
     </button>
   )

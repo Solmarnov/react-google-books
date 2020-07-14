@@ -7,7 +7,7 @@ import './style.css';
 const Container = props => {
   return (
     <div 
-      className={`container${props.fluid ? "-fluid" : ""} py-5 rounded`}
+      className={`container${props.fluid ? "-fluid" : ""} my-5 py-5 rounded`}
       id={props.id}
     >
       {props.children}
