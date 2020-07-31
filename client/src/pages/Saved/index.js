@@ -17,6 +17,12 @@ function Saved() {
     .catch(err => console.log(`Get Books encountered an error:\n${err}`));
   }
 
+  const deleteBook = (id) => {
+    API.deleteBook(id)
+    .then(res => loadBooks())
+    .catch(err => console.log(err));
+  }
+
   console.log(books);
 
   return (
@@ -34,17 +40,17 @@ function Saved() {
             {books.map((book, i) => (
               <ListItem key={book._id}>
                 <div className="result-img">
-                  <a href={book.link} target="_blank">
+                  <a href={book.link} target="_blank" rel="noopener noreferrer">
                     <img src={book.image} alt={`${book.title} book cover`} className="pr-3" />
                   </a>
                 </div>
                 <div className="result-info">
-                  <a href={book.link} target="_blank">
+                  <a href={book.link} target="_blank" rel="noopener noreferrer">
                     <h3 className="mb-0 pb-0">{book.title}</h3>
                     <p className="mb-2">by <strong>{book.author}</strong></p>
                   </a>
                   <p>{book.description}</p>
-                  <button data-index={i} className="btn btn-danger px-5">Delete</button>
+                  <button data-index={i} className="btn btn-danger px-5" onClick={() => deleteBook(book._id)}>Delete</button>
                 </div>
               </ListItem>
             ))}

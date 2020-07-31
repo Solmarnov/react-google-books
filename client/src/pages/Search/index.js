@@ -41,6 +41,7 @@ const Search = () => {
   }
 
   const saveBook = ({ target }) => {
+    // Grab target's data-index to compare with books array index
     const i = target.getAttribute('data-index');
     const book = books[i]
     API.saveBook({
@@ -51,9 +52,6 @@ const Search = () => {
       title: book.volumeInfo.title
     })
   }
-
-  // *  Consider how to pass action to Form
-  console.log(books);
 
   return (
     <div>
@@ -89,7 +87,7 @@ const Search = () => {
                   <img src={book.volumeInfo.imageLinks.thumbnail} alt={`${book.volumeInfo.title} book cover`} className="pr-3" />
                 </div>
                 <div className="result-info">
-                  <a href={book.volumeInfo.infoLink} target="_blank">
+                  <a href={book.volumeInfo.infoLink} target="_blank" rel="noopener noreferrer">
                     <h3 className="mb-0 pb-0">{book.volumeInfo.title}</h3>
                     <p className="mb-2">by <strong>{book.volumeInfo.authors[0]}</strong></p>
                   </a>
