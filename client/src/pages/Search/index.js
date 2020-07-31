@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import API from '../../utils/API';
 import { Container } from '../../components/Grid';
 import Jumbotron from '../../components/Jumbotron';
@@ -87,15 +86,15 @@ const Search = () => {
             {books.map((book, i) => (
               <ListItem key={i} book={book}>
                 <div className="result-img">
-                  <img src={book.volumeInfo.imageLinks.thumbnail} alt={`${book.volumeInfo.title} cover image`} className="pr-3" />
+                  <img src={book.volumeInfo.imageLinks.thumbnail} alt={`${book.volumeInfo.title} book cover`} className="pr-3" />
                 </div>
                 <div className="result-info">
-                  <Link to={book.volumeInfo.infoLink}>
+                  <a href={book.volumeInfo.infoLink} target="_blank">
                     <h3 className="mb-0 pb-0">{book.volumeInfo.title}</h3>
                     <p className="mb-2">by <strong>{book.volumeInfo.authors[0]}</strong></p>
-                  </Link>
+                  </a>
                   <p>{elipsify(book.volumeInfo.description)}</p>
-                  <button data-index={i} className="btn btn-secondary px-5" onClick={saveBook}>Save</button>
+                  <button data-index={i} className="btn btn-primary px-5" onClick={saveBook}>Save</button>
                 </div>
               </ListItem>
             ))}

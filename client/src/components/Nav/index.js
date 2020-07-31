@@ -1,6 +1,7 @@
 import React from "react";
 
 function Nav() {
+  const { pathname } = window.location;
   return (
     <nav className="navbar navbar-expand-lg navbar-light bg-light">
       <div className="container">
@@ -11,10 +12,10 @@ function Nav() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="/search">Search</a>
+              <a className={pathname === "/search" || pathname === "/" ? "nav-link active text-primary" : "nav-link"} href="/search">Search</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="/saved">Saved</a>
+              <a className={pathname === "/saved" ? "nav-link active text-primary" : "nav-link"} href="/saved">Saved</a>
             </li>
           </ul>
         </div>
