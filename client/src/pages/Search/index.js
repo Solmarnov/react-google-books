@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import API from '../../utils/API';
 import { Container } from '../../components/Grid';
 import Jumbotron from '../../components/Jumbotron';
 import Form from '../../components/Form';
 import { FormGroup, FormBtn } from '../../components/FormGroup';
 import { Input } from '../../components/FormGroupChildren';
-// import { List, ListItem } from '../../components/List';
+import { List, ListItem } from '../../components/List';
 require('dotenv').config();
 
 const Search = () => {
@@ -20,19 +20,41 @@ const Search = () => {
 
   const handleFormSubmit = event => {
     event.preventDefault();
-    console.log(process.env.REACT_APP_API_KEY);
+    event.target.setAttribute('disabled', true);
     const { searchQuery } = formObject;
     if (formObject.searchQuery) {
       API.getGoogleBooks(searchQuery)
-      .then(res =>{
-        setBooks(res);
+      .then(({ data }) => {
+        setBooks(data.items);
         setFormObject({});
       })
       .catch(err => console.log(`Get Google Books returned error:\n${err}`));
     }
   }
 
+  const elipsify = str => {
+    const maxLength = 300;
+    if (!str) {
+      return;
+    } else {
+      return str.length > maxLength ? `${str.substring(0, maxLength)}...` : str;
+    }
+  }
+
+  const saveBook = ({ target }) => {
+    const i = target.getAttribute('data-index');
+    const book = books[i]
+    API.saveBook({
+      author: book.volumeInfo.title,
+      description: book.volumeInfo.description,
+      image: book.volumeInfo.imageLinks.thumbnail,
+      link: book.volumeInfo.infoLink,
+      title: book.volumeInfo.title
+    })
+  }
+
   // *  Consider how to pass action to Form
+  console.log(books);
 
   return (
     <div>
@@ -58,10 +80,26 @@ const Search = () => {
       </Container>
       <Container id="book-search-results-container">
         <h2>Search results</h2>
-        {books.length ? (
-          <Container />
-        ) : (
+        {!books.length ? (
           <h3>No results to display.</h3>
+        ) : (
+          <List>
+            {books.map((book, i) => (
+              <ListItem key={i} book={book}>
+                <div className="result-img">
+                  <img src={book.volumeInfo.imageLinks.thumbnail} alt={`${book.volumeInfo.title} cover image`} className="pr-3" />
+                </div>
+                <div className="result-info">
+                  <Link to={book.volumeInfo.infoLink}>
+                    <h3 className="mb-0 pb-0">{book.volumeInfo.title}</h3>
+                    <p className="mb-2">by <strong>{book.volumeInfo.authors[0]}</strong></p>
+                  </Link>
+                  <p>{elipsify(book.volumeInfo.description)}</p>
+                  <button data-index={i} className="btn btn-secondary px-5" onClick={saveBook}>Save</button>
+                </div>
+              </ListItem>
+            ))}
+          </List>
         )}
       </Container>
     </div>
