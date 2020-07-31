@@ -4,6 +4,7 @@ import Nav from './components/Nav';
 import Search from './pages/Search';
 import Saved from './pages/Saved';
 import NoMatch from './pages/NoMatch';
+require('dotenv').config();
 
 function App() {
   return (
